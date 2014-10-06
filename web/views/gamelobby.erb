@@ -1,0 +1,75 @@
+<div class='table'>
+<table class='table table-hover'>
+<tr><td>Tournaments you played</td></tr>
+<% @tourney.each do |t| %>
+  <tr>
+    <td><a href='/view/<%= t.tour.id%>/<%= @player.name %>'><%= t.tour.name %></a></td>
+  </tr>
+<% end %>
+<tr><td>Tournaments you can make a move</td></tr>
+<% @tourneys.each do |t| %>
+  <tr>
+    <td><a href='/tours/<%= t.tour.id%>/<%= @player.name %>'><%= t.tour.name %></a></td>
+  </tr>
+<% end %>
+<tr><td>Tournaments you can join</td></tr>
+<% @join_tourneys.each do |t| %>
+  <tr>
+    <td><a href='/tours/<%= t.tour.id%>/<%= @player.name %>'><%= t.tour.name %></a></td>
+  </tr>
+<% end %>
+<tr><td>Tournaments you won</td></tr>
+<% @wins.each do |t| %>
+  <tr>
+    <td><%= t.name %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<div class='create'>
+<h1>Create new tournament</h1>
+<div>
+  <form method='post' action='/newgame'>
+  <div>
+  <label for='name'>Tournament name</label>
+  <input type='text' id='name' name='tourname'>
+  </div><div>
+  <label for='rule'>Number of players</label>
+  <input type='integer' id='rule' name='rule'>
+  </div>
+  <div>
+  <label style='margin-left:50px;'>Rule</label>
+  <select name='game' style='margin-left:50px;'>
+  <option>1 out of 1</option>
+  <option>2 out of 3</option>
+  <option>3 out of 5</option>
+  </select>
+  </div>
+  <input type='submit' value='create' class="btn btn-primary">
+  <input style='visibility:hidden;' type='text' name='name' value='<%= @player.name %>'>
+  <input style='visibility:hidden;' type='integer' name='player_id' value='<%= @player.id %>'>
+  </form>
+</div>
+<div>
+  <form method='post' action='/logout' style='margin-top:40px;'>
+  <input name="_method" type="hidden" value="delete">
+  <input type='submit' value='log out' class="btn btn-primary">
+  </form>
+</div>
+</div>
+<style>
+.table{
+  margin-top: 50px;
+  float: left;
+  width:55%;
+  display: inline-block;
+}
+
+table {
+  font-size: 20px;
+}
+.create {
+  margin-top: 70px;
+  float:left;
+}
+</style>

@@ -1,0 +1,93 @@
+<h1>Make your move</h1>
+<div>
+  <form method='get' action='/submit'>
+    <label for='move'>Move</label>
+    <select id='move' name='move'>
+      <option>rock</option>
+      <option>paper</option>
+      <option>scissors</option>
+    </select>
+<input style='visibility:hidden;' type='text' name='name' value='<%= @name %>'>
+<input style='visibility:hidden;' type='text' name='id' value='<%= @id %>'>
+    <input type='submit' value='submit'>
+  </form>
+</div>
+<style>
+.col16 {
+  display: inline-block;
+  float:left;
+  width:40px;
+  margin-top:20px;
+  text-align: center;
+}
+.row16:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.col8 {
+  display: inline-block;
+  float:left;
+  width:80px;
+  margin-top:20px;
+  text-align: center;
+}
+.row8:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.col4 {
+  display: inline-block;
+  float:left;
+  margin-left: 60px;
+  margin-top: 20px;
+  width:100px;
+  text-align: center;
+}
+.row4:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.col2 {
+  display: inline-block;
+  float:left;
+  width: 200px;
+  margin-left: 140px;
+  margin-top: 20px;
+}
+.row2:after {
+  content: " ";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.col1 {
+  float: left;
+  display: inline-block;
+  margin-left: 300px;
+  margin-top: 20px;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $('.col4:eq(0)').css('margin-left','30px');
+});
+</script>  
+<div>
+<% @info.each_with_index do |i,k| %>
+  <div class='row<%= @rule/(2**k) %>'>
+  <% i.each do |j| %>
+    <% if j.status == 'lost' && j.round.to_i == k+1 %>
+      <div class='col<%= @rule/(2**k) %>'><span style='color:red;text-decoration:line-through;'><span style='color:black;'><%= j.player.name %></span></span></div>
+    <% else %>  
+      <div class='col<%= @rule/(2**k) %>'><%= j.player.name %></div>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+</div>
